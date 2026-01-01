@@ -1,0 +1,395 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CourseBuilderAI API",
+    "version": "1.0.0",
+    "description": "AI-powered course generation API using structured pedagogy-first approach with Groq (Kimi K2)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/api/course/blueprint": {
+      "post": {
+        "summary": "Generate Course Blueprint",
+        "description": "Creates a complete course structure with modules and lessons from a course specification",
+        "tags": ["Course Generation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseSpec"
+              },
+              "example": {
+                "title": "Introduction to Machine Learning",
+                "audience": "Computer science students with basic programming knowledge",
+                "level": "intermediate",
+                "goal": "Understand core ML concepts and implement basic algorithms",
+                "teachingStyle": "Practical, hands-on with real examples",
+                "language": "English"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Blueprint generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blueprint"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or LLM error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/course/lesson-plan": {
+      "post": {
+        "summary": "Generate Lesson Plan",
+        "description": "Creates a detailed lesson plan for a specific lesson within a course blueprint",
+        "tags": ["Course Generation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["courseSpec", "blueprint", "lessonMeta"],
+                "properties": {
+                  "courseSpec": {
+                    "$ref": "#/components/schemas/CourseSpec"
+                  },
+                  "blueprint": {
+                    "$ref": "#/components/schemas/Blueprint"
+                  },
+                  "lessonMeta": {
+                    "type": "object",
+                    "required": ["title", "objective"],
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Introduction to Neural Networks"
+                      },
+                      "objective": {
+                        "type": "string",
+                        "example": "Understand the basic structure and function of neural networks"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lesson plan generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonPlan"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or LLM error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/course/lesson-script": {
+      "post": {
+        "summary": "Generate Lesson Script",
+        "description": "Generates a spoken lesson script based on a lesson plan",
+        "tags": ["Course Generation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["courseSpec", "lessonPlan"],
+                "properties": {
+                  "courseSpec": {
+                    "$ref": "#/components/schemas/CourseSpec"
+                  },
+                  "lessonPlan": {
+                    "$ref": "#/components/schemas/LessonPlan"
+                  },
+                  "constraints": {
+                    "type": "object",
+                    "properties": {
+                      "maxLength": {
+                        "type": "number",
+                        "example": 2000,
+                        "description": "Maximum script length in words"
+                      },
+                      "toneOverride": {
+                        "type": "string",
+                        "example": "conversational and enthusiastic",
+                        "description": "Override the default teaching style tone"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lesson script generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonScript"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or LLM error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/course/refine-lesson": {
+      "post": {
+        "summary": "Refine Lesson Script",
+        "description": "Refines an existing lesson script based on feedback",
+        "tags": ["Course Generation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["lessonPlan", "script", "feedback"],
+                "properties": {
+                  "lessonPlan": {
+                    "$ref": "#/components/schemas/LessonPlan"
+                  },
+                  "script": {
+                    "$ref": "#/components/schemas/LessonScript"
+                  },
+                  "feedback": {
+                    "type": "string",
+                    "example": "Add more concrete examples and simplify the technical jargon",
+                    "description": "Feedback on how to improve the script"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lesson script refined successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonScript"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or LLM error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CourseSpec": {
+        "type": "object",
+        "required": ["title", "audience", "level", "goal", "teachingStyle", "language"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Introduction to TypeScript"
+          },
+          "audience": {
+            "type": "string",
+            "example": "JavaScript developers wanting to learn TypeScript"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["beginner", "intermediate", "advanced"],
+            "example": "intermediate"
+          },
+          "goal": {
+            "type": "string",
+            "example": "Master TypeScript fundamentals and apply them to real-world projects"
+          },
+          "teachingStyle": {
+            "type": "string",
+            "example": "Practical and example-driven with hands-on exercises"
+          },
+          "language": {
+            "type": "string",
+            "example": "English"
+          }
+        }
+      },
+      "Blueprint": {
+        "type": "object",
+        "required": ["courseDescription", "learningObjectives", "modules"],
+        "properties": {
+          "courseDescription": {
+            "type": "string",
+            "example": "This course provides a comprehensive introduction to TypeScript..."
+          },
+          "learningObjectives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 5,
+            "maxItems": 8,
+            "example": [
+              "Understand TypeScript's type system",
+              "Use interfaces and type aliases effectively",
+              "Apply generics for reusable code"
+            ]
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title", "description", "lessons"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "TypeScript Basics"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Learn the fundamental concepts of TypeScript"
+                },
+                "lessons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["title", "objective", "estimatedDurationMinutes"],
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Type Annotations"
+                      },
+                      "objective": {
+                        "type": "string",
+                        "example": "Learn how to use type annotations in TypeScript"
+                      },
+                      "estimatedDurationMinutes": {
+                        "type": "number",
+                        "example": 30
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "LessonPlan": {
+        "type": "object",
+        "required": ["lessonObjective", "keyConcepts", "teachingFlow", "exampleSuggestions", "commonMisunderstandings"],
+        "properties": {
+          "lessonObjective": {
+            "type": "string",
+            "example": "Students will understand how to use type annotations in TypeScript"
+          },
+          "keyConcepts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Type annotations", "Type inference", "Basic types"]
+          },
+          "teachingFlow": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Introduce type annotations", "Show basic examples", "Practice exercises"]
+          },
+          "exampleSuggestions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Variable with string type", "Function with number parameters"]
+          },
+          "commonMisunderstandings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Confusing type annotations with type inference"]
+          }
+        }
+      },
+      "LessonScript": {
+        "type": "object",
+        "required": ["script"],
+        "properties": {
+          "script": {
+            "type": "string",
+            "example": "Welcome to today's lesson on type annotations in TypeScript..."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Validation failed: title is required"
+          }
+        }
+      }
+    }
+  }
+}

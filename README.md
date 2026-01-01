@@ -47,6 +47,14 @@ bun dev
 
 The app will be available at http://localhost:3000
 
+## Interactive API Documentation
+
+Visit **http://localhost:3000/api-docs** to access the Swagger UI interface where you can:
+- View all API endpoints with detailed schemas
+- Test endpoints directly in your browser
+- See request/response examples
+- No need for curl or Postman!
+
 ## API Endpoints
 
 ### 1. Generate Blueprint
