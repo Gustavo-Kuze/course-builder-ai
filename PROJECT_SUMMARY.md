@@ -29,7 +29,7 @@ course-builder-ai/
 │   │   │   └── lessonScript.schema.ts
 │   │   │
 │   │   ├── llm/                    # LLM integration
-│   │   │   ├── client.ts           # OpenAI client
+│   │   │   ├── client.ts           # Groq client
 │   │   │   ├── runPrompt.ts        # Prompt executor
 │   │   │   └── prompts/            # Versioned prompts
 │   │   │       ├── blueprint.ts
@@ -77,7 +77,7 @@ course-builder-ai/
 - lessonScript.schema.ts - Validates lesson scripts
 
 ### ✅ LLM Integration (`src/core/llm/`)
-- **client.ts**: OpenAI client initialization
+- **client.ts**: Groq client initialization
 - **runPrompt.ts**: Generic prompt executor with JSON parsing and validation
 - **prompts/**: Four versioned prompt definitions matching the spec exactly
 
@@ -184,6 +184,6 @@ The implementation adheres to all requirements in `COURSE_BUILDER_SPECS.md`:
 - ✅ Next.js with App Router
 - ✅ TypeScript (strict mode)
 - ✅ Node.js runtime
-- ✅ OpenAI Chat Completions API
+- ✅ Groq API with moonshotai/kimi-k2-instruct-0905
 - ✅ Zod for validation
 - ✅ Repository pattern for persistence

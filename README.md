@@ -19,7 +19,7 @@ The LLM is treated as a stateless function executor. All orchestration logic, va
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Runtime**: Node.js
-- **LLM Provider**: OpenAI Chat Completions API
+- **LLM Provider**: Groq (moonshotai/kimi-k2-instruct-0905)
 - **Schema Validation**: Zod
 - **Persistence**: In-memory repository (interface-based for future DB integration)
 
@@ -30,14 +30,14 @@ The LLM is treated as a stateless function executor. All orchestration logic, va
 bun install
 ```
 
-2. Create a `.env.local` file with your OpenAI API key:
+2. Create a `.env.local` file with your Groq API key:
 ```bash
 cp .env.example .env.local
 ```
 
 Then edit `.env.local` and add your key:
 ```
-OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
 ```
 
 3. Run the development server:

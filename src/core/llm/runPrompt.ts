@@ -1,4 +1,4 @@
-import { getOpenAI } from "./client"
+import { getGroq } from "./client"
 
 export interface PromptInput {
   system: string
@@ -9,10 +9,10 @@ export interface PromptInput {
 export async function runPrompt<T>(input: PromptInput): Promise<T> {
   const { system, user, temperature = 0.7 } = input
 
-  const openai = getOpenAI()
+  const groq = getGroq()
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4-turbo-preview",
+  const response = await groq.chat.completions.create({
+    model: "moonshotai/kimi-k2-instruct-0905",
     messages: [
       { role: "system", content: system },
       { role: "user", content: user },

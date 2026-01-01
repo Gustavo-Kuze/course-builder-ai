@@ -8,22 +8,22 @@
 
 ## Implementation Highlights
 
-### 1. Lazy OpenAI Client Initialization
+### 1. Lazy Groq Client Initialization
 
-The OpenAI client is initialized lazily to prevent build-time errors when the API key is not available:
+The Groq client is initialized lazily to prevent build-time errors when the API key is not available:
 
 ```typescript
 // src/core/llm/client.ts
-export function getOpenAI(): OpenAI {
-  if (!openaiInstance) {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error("OPENAI_API_KEY environment variable is required")
+export function getGroq(): Groq {
+  if (!groqInstance) {
+    if (!process.env.GROQ_API_KEY) {
+      throw new Error("GROQ_API_KEY environment variable is required")
     }
-    openaiInstance = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+    groqInstance = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
     })
   }
-  return openaiInstance
+  return groqInstance
 }
 ```
 
@@ -103,7 +103,7 @@ The entire codebase uses TypeScript strict mode with:
 Clear boundaries between layers:
 
 ```
-API Routes → Orchestrators → LLM Adapter → OpenAI
+API Routes → Orchestrators → LLM Adapter → Groq
      ↓            ↓
  Repository   Validation
 ```
@@ -136,7 +136,7 @@ This makes it easy to:
 
 ### Environment Variables
 
-- `OPENAI_API_KEY`: Required for LLM calls
+- `GROQ_API_KEY`: Required for LLM calls
 - Set in `.env.local` for development
 - Set in deployment environment for production
 
@@ -253,7 +253,7 @@ Consider adding rate limiting for production:
 vercel deploy
 ```
 
-Add `OPENAI_API_KEY` in Vercel environment variables.
+Add `GROQ_API_KEY` in Vercel environment variables.
 
 ### Docker
 
@@ -272,7 +272,7 @@ CMD ["bun", "start"]
 ### Environment Variables
 
 Required in production:
-- `OPENAI_API_KEY`
+- `GROQ_API_KEY`
 - `NODE_ENV=production`
 
 ## Monitoring Recommendations
@@ -361,8 +361,8 @@ for await (const chunk of stream) {
 
 ### Build Failures
 
-**Error**: "OPENAI_API_KEY environment variable is required"
-- **Solution**: This should not happen after the lazy initialization fix. If it does, check that `getOpenAI()` is only called at runtime, not at module load time.
+**Error**: "GROQ_API_KEY environment variable is required"
+- **Solution**: This should not happen after the lazy initialization fix. If it does, check that `getGroq()` is only called at runtime, not at module load time.
 
 ### Type Errors
 

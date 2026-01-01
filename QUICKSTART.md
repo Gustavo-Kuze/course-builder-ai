@@ -12,9 +12,9 @@ bun install
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your OpenAI API key:
+Edit `.env.local` and add your Groq API key:
 ```
-OPENAI_API_KEY=sk-your-key-here
+GROQ_API_KEY=gsk_your-key-here
 ```
 
 3. Start the development server:
@@ -114,9 +114,9 @@ See `examples/test-api.json` for sample request data.
 
 ## Troubleshooting
 
-### Error: "OPENAI_API_KEY environment variable is required"
+### Error: "GROQ_API_KEY environment variable is required"
 - Make sure you created `.env.local` file
-- Make sure your API key is properly set
+- Make sure your Groq API key is properly set
 - Restart the dev server after adding the environment variable
 
 ### Error: Invalid JSON from LLM
