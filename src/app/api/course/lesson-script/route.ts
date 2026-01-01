@@ -4,6 +4,7 @@ import { courseSpecSchema } from "@/core/schemas/courseSpec.schema"
 import { lessonPlanSchema } from "@/core/schemas/lessonPlan.schema"
 import { generateLessonScript } from "@/core/orchestrator/generateLessonScript"
 import { courseRepository } from "@/db/courseRepository"
+import { corsHeaders, handleOptions } from "../middleware"
 
 const requestSchema = z.object({
   courseSpec: courseSpecSchema,
@@ -13,6 +14,10 @@ const requestSchema = z.object({
     toneOverride: z.string().optional(),
   }).optional(),
 })
+
+export async function OPTIONS() {
+  return handleOptions()
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,17 +33,20 @@ export async function POST(request: NextRequest) {
       "v1"
     )
 
-    return NextResponse.json(lessonScript, { status: 200 })
+    return NextResponse.json(lessonScript, {
+      status: 200,
+      headers: corsHeaders()
+    })
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
         { error: error.message },
-        { status: 400 }
+        { status: 400, headers: corsHeaders() }
       )
     }
     return NextResponse.json(
       { error: "An unexpected error occurred" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders() }
     )
   }
 }
