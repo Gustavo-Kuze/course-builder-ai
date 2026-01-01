@@ -1,0 +1,28 @@
+{
+  "lessonPlan": {
+    "lessonObjective": "Understand what variables are and how to use different data types",
+    "keyConcepts": [
+      "What is a variable",
+      "Variable naming rules",
+      "Different data types",
+      "Assignment operator"
+    ],
+    "teachingFlow": [
+      "Explain variables using analogies",
+      "Show how to create variables",
+      "Demonstrate data types",
+      "Practice with examples"
+    ],
+    "exampleSuggestions": [
+      "Storing a name",
+      "Storing age and calculating birth year"
+    ],
+    "commonMisunderstandings": [
+      "Variables are labels, not boxes"
+    ]
+  },
+  "script": {
+    "script": "Hello everyone! Welcome to this lesson on variables. A variable in Python is like a labeled box where you can store information. Think of it like a storage container in your house - you might have one labeled 'winter clothes' and another labeled 'books'. In Python, we create variables to store different types of data. Let me show you how to create your first variable. We'll start by storing someone's name. Type this: name = 'Alice'. What we just did is create a variable called 'name' and stored the text 'Alice' in it. The equal sign is how we assign a value to a variable. Now whenever we want to use that name, we can just write 'name' instead of typing 'Alice' every time. Pretty cool, right?"
+  },
+  "feedback": "Add more concrete code examples that students can type along with. Include at least 3 different examples showing different data types (string, number, boolean). Also add a pause point where students should try writing their own variable before you show the solution."
+}

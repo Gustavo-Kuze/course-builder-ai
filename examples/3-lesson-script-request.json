@@ -1,0 +1,41 @@
+{
+  "courseSpec": {
+    "title": "Python Programming for Complete Beginners",
+    "audience": "Anyone with no prior programming experience",
+    "level": "beginner",
+    "goal": "Learn Python fundamentals and write simple programs",
+    "teachingStyle": "Patient, step-by-step explanations with lots of practice",
+    "language": "English"
+  },
+  "lessonPlan": {
+    "lessonObjective": "Understand what variables are and how to use different data types",
+    "keyConcepts": [
+      "What is a variable",
+      "Variable naming rules",
+      "Different data types (strings, numbers, booleans)",
+      "Assignment operator (=)",
+      "Printing variables"
+    ],
+    "teachingFlow": [
+      "Explain what a variable is using real-world analogies",
+      "Show how to create a variable in Python",
+      "Demonstrate different data types with examples",
+      "Practice with interactive examples",
+      "Common mistakes to avoid"
+    ],
+    "exampleSuggestions": [
+      "Storing a name in a variable",
+      "Storing age and calculating birth year",
+      "Creating a simple greeting program"
+    ],
+    "commonMisunderstandings": [
+      "Variables are not 'boxes' but labels pointing to values",
+      "Variable names are case-sensitive",
+      "You can change what a variable points to"
+    ]
+  },
+  "constraints": {
+    "maxLength": 2000,
+    "toneOverride": "very friendly and encouraging, like talking to a friend"
+  }
+}

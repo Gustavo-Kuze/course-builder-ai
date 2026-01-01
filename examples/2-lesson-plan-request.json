@@ -1,0 +1,58 @@
+{
+  "courseSpec": {
+    "title": "Python Programming for Complete Beginners",
+    "audience": "Anyone with no prior programming experience",
+    "level": "beginner",
+    "goal": "Learn Python fundamentals and write simple programs",
+    "teachingStyle": "Patient, step-by-step explanations with lots of practice",
+    "language": "English"
+  },
+  "blueprint": {
+    "courseDescription": "A gentle introduction to programming using Python, designed for absolute beginners with no prior coding experience.",
+    "learningObjectives": [
+      "Understand basic programming concepts like variables and data types",
+      "Write simple Python programs to solve everyday problems",
+      "Use conditional statements to make decisions in code",
+      "Create and use functions to organize code",
+      "Work with lists and loops to process data"
+    ],
+    "modules": [
+      {
+        "title": "Getting Started with Python",
+        "description": "Introduction to Python and setting up your environment",
+        "lessons": [
+          {
+            "title": "What is Programming?",
+            "objective": "Understand what programming is and why Python is a great first language",
+            "estimatedDurationMinutes": 30
+          },
+          {
+            "title": "Installing Python and Writing Your First Program",
+            "objective": "Set up Python and write a Hello World program",
+            "estimatedDurationMinutes": 45
+          }
+        ]
+      },
+      {
+        "title": "Python Basics",
+        "description": "Learn the fundamental building blocks of Python",
+        "lessons": [
+          {
+            "title": "Variables and Data Types",
+            "objective": "Understand what variables are and how to use different data types",
+            "estimatedDurationMinutes": 60
+          },
+          {
+            "title": "Working with Strings",
+            "objective": "Learn how to manipulate and format text in Python",
+            "estimatedDurationMinutes": 45
+          }
+        ]
+      }
+    ]
+  },
+  "lessonMeta": {
+    "title": "Variables and Data Types",
+    "objective": "Understand what variables are and how to use different data types"
+  }
+}
