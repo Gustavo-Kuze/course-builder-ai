@@ -1,0 +1,83 @@
+# CourseBuilderAI - Caddy Configuration
+# Add this to your /etc/caddy/Caddyfile
+
+coursebuilder.firestormapps.com.br {
+	# Enable automatic HTTPS
+	tls {
+		protocols tls1.2 tls1.3
+	}
+
+	# CORS headers for API access
+	@api {
+		path /api/*
+	}
+
+	header @api {
+		Access-Control-Allow-Origin *
+		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+		Access-Control-Allow-Headers "Content-Type, Authorization"
+	}
+
+	# Handle OPTIONS preflight requests
+	@options {
+		method OPTIONS
+	}
+	respond @options 204
+
+	# Proxy to Next.js application running on port 3005
+	reverse_proxy localhost:3005 {
+		# Set proper headers for reverse proxy
+		header_up Host {host}
+		header_up X-Real-IP {remote}
+		header_up X-Forwarded-For {remote}
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-Host {host}
+
+		# Health check
+		health_uri /
+		health_interval 30s
+		health_timeout 10s
+	}
+
+	# Security headers
+	header {
+		# Enable HSTS
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+		# Prevent clickjacking
+		X-Frame-Options "SAMEORIGIN"
+
+		# XSS protection
+		X-XSS-Protection "1; mode=block"
+
+		# Prevent MIME type sniffing
+		X-Content-Type-Options "nosniff"
+
+		# Referrer policy
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+
+	# Gzip compression
+	encode gzip zstd
+
+	# Logging
+	log {
+		output file /var/log/caddy/coursebuilder.log {
+			roll_size 10mb
+			roll_keep 5
+		}
+		format json
+	}
+}
+
+# Local development (optional)
+localhost:8080 {
+	reverse_proxy localhost:3005
+
+	# CORS for local development
+	header {
+		Access-Control-Allow-Origin *
+		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+		Access-Control-Allow-Headers "Content-Type, Authorization"
+	}
+}
