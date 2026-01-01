@@ -1,0 +1,15 @@
+{
+  "courseSpec": {
+    "title": "Introduction to TypeScript",
+    "audience": "JavaScript developers wanting to learn TypeScript",
+    "level": "intermediate",
+    "goal": "Master TypeScript fundamentals and apply them to real-world projects",
+    "teachingStyle": "Practical and example-driven with hands-on exercises",
+    "language": "English"
+  },
+  "lessonMeta": {
+    "title": "Type Annotations and Inference",
+    "objective": "Understand how to use type annotations and leverage TypeScript's type inference"
+  },
+  "feedback": "Add more practical examples and explain when to use explicit annotations vs inference"
+}
